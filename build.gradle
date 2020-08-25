@@ -1,0 +1,56 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'com.diffplug.gradle.spotless' version '4.5.1'
+    id 'com.star-zero.gradle.githook' version '1.2.0'
+    id 'java'
+}
+
+group = 'io.github.hufghani'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '13'
+targetCompatibility = '13'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation(
+            'org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.1')
+    testRuntimeOnly( 'org.junit.jupiter:junit-jupiter-engine:5.3.1')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+spotless {
+    enforceCheck = true
+    java {
+        googleJavaFormat()
+    }
+}
+
+githook {
+    createHooksDirIfNotExist = true
+    hooks {
+        "pre-commit" {
+            task = "spotlessCheck"
+        }
+    }
+}
