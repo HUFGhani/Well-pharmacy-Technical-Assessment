@@ -1,5 +1,8 @@
 package io.github.hufghani.wellpharmacytechnicalassessment.service;
 
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.toMap;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.hufghani.wellpharmacytechnicalassessment.model.outwardPostcode.Area;
@@ -12,6 +15,7 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -62,6 +66,33 @@ public class SurgeriesServiceImpl implements SurgeriesService {
     int totalSurgeriesInArea = getTotalSurgeriesInArea(sortedSurgeriesWithAreaPostCode);
 
     return buildHistogramResponses(sortedSurgeriesWithAreaPostCode, totalSurgeriesInArea);
+  }
+
+  @Override
+  public List<SurgeryResponse> getTopTopSurgeriesInArea(int topSurgeries) {
+    Map<String, List<Surgery>> sortedSurgeriesWithAreaPostCode =
+        sortSurgeryList(getSurgeryList(), this.areaList);
+    int totalSurgeriesInArea = getTotalSurgeriesInArea(sortedSurgeriesWithAreaPostCode);
+
+    Map<String, List<Surgery>> topSurgeriesInArea =
+        getTopSurgeries(topSurgeries, sortedSurgeriesWithAreaPostCode);
+
+    return buildHistogramResponses(topSurgeriesInArea, totalSurgeriesInArea);
+  }
+
+  private LinkedHashMap<String, List<Surgery>> getTopSurgeries(
+      int topSurgeries, Map<String, List<Surgery>> sortedSurgeriesWithAreaPostCode) {
+    return sortedSurgeriesWithAreaPostCode.entrySet().stream()
+        .sorted(comparingInt(stringListEntry -> stringListEntry.getValue().size() * -1))
+        .limit(topSurgeries == 0 ? sortedSurgeriesWithAreaPostCode.size() : topSurgeries)
+        .collect(
+            toMap(
+                Entry::getKey,
+                Entry::getValue,
+                (a, b) -> {
+                  throw new AssertionError();
+                },
+                LinkedHashMap::new));
   }
 
   private List<SurgeryResponse> buildHistogramResponses(

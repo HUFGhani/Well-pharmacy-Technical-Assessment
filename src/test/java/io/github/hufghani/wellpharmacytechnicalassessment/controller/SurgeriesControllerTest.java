@@ -52,4 +52,27 @@ class SurgeriesControllerTest {
         .andExpect(status().isOk())
         .andExpect(content().string(containsString(expected)));
   }
+
+  @Test
+  void testGetTopSurgeriesInAreaEndpoint() throws Exception {
+    List<SurgeryResponse> surgeryResponses = new ArrayList<>();
+    surgeryResponses.add(new SurgeryResponse("M6", 16, "5.08%"));
+    surgeryResponses.add(new SurgeryResponse("M21", 16, "5.08%"));
+    surgeryResponses.add(new SurgeryResponse("M45", 14, "4.44%"));
+    surgeryResponses.add(new SurgeryResponse("M8", 14, "4.44%"));
+    surgeryResponses.add(new SurgeryResponse("M30", 14, "4.44%"));
+
+    String expected =
+        "[{\"postcode\":\"M6\",\"numberOfSurgeries\":16,\"percentageOfSurgeries\":\"5.08%\"},"
+            + "{\"postcode\":\"M21\",\"numberOfSurgeries\":16,\"percentageOfSurgeries\":\"5.08%\"},"
+            + "{\"postcode\":\"M45\",\"numberOfSurgeries\":14,\"percentageOfSurgeries\":\"4.44%\"},"
+            + "{\"postcode\":\"M8\",\"numberOfSurgeries\":14,\"percentageOfSurgeries\":\"4.44%\"},"
+            + "{\"postcode\":\"M30\",\"numberOfSurgeries\":14,\"percentageOfSurgeries\":\"4.44%\"}]";
+
+    when(surgeriesService.getTopTopSurgeriesInArea(5)).thenReturn(surgeryResponses);
+    this.mockMvc
+        .perform(MockMvcRequestBuilders.get("/surgeries/topsurgeries/5"))
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString(expected)));
+  }
 }

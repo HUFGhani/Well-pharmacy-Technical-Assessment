@@ -1,4 +1,4 @@
-package io.github.hufghani.wellpharmacytechnicalassessment;
+package io.github.hufghani.wellpharmacytechnicalassessment.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.github.hufghani.wellpharmacytechnicalassessment.model.response.SurgeryResponse;
 import io.github.hufghani.wellpharmacytechnicalassessment.model.surgery.PostCode;
 import io.github.hufghani.wellpharmacytechnicalassessment.model.surgery.Surgery;
-import io.github.hufghani.wellpharmacytechnicalassessment.service.SurgeriesServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -176,5 +175,18 @@ public class SurgeriesServiceImplTest {
 
     List<SurgeryResponse> result = surgeriesService.getNumberOfSurgeriesInAnArea();
     assertTrue(result.size() == 0);
+  }
+
+  @Test
+  void testGetTopTopSurgeriesInArea() {
+    List<SurgeryResponse> expected = new ArrayList<>();
+    expected.add(new SurgeryResponse("M21", 3, "37.50%"));
+    expected.add(new SurgeryResponse("M2", 1, "12.50%"));
+    expected.add(new SurgeryResponse("M4", 1, "12.50%"));
+    expected.add(new SurgeryResponse("M8", 1, "12.50%"));
+    expected.add(new SurgeryResponse("M22", 1, "12.50%"));
+
+    List<SurgeryResponse> result = surgeriesService.getTopTopSurgeriesInArea(5);
+    assertEquals(expected, result);
   }
 }

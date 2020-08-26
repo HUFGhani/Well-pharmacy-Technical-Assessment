@@ -6,4 +6,6 @@ import java.util.List;
 public interface SurgeriesService {
 
   List<SurgeryResponse> getNumberOfSurgeriesInAnArea();
+
+  List<SurgeryResponse> getTopTopSurgeriesInArea(int topSurgeries);
 }
