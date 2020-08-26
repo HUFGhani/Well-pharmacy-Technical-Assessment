@@ -1,4 +1,5 @@
 # Well Pharmacy Technical Assessment
+[Click Here](https://well-pharmacy-technical-assess.herokuapp.com/swagger-ui.html) to be taken the deployed application which is hosted on heroku.
 
  ## Prerequisites
  - Java JDK 13
@@ -8,8 +9,9 @@
 The application uses port 8080, and uses Spring Boot, Junit 5 and Lombok. 
 
 ## Endpoints
-- ```http://localhost:8080/surgeries``` get number of surgeries in area/City by outward postcode.
-- ```http://localhost:8080/surgeries/topsurgeries/{topSurgeries}``` get most number of surgeries in area/City  (replace {topSurgeries} with the number value  top 5, for example: ```http://localhost:8080/surgeries/topsurgeries/5```)
+- ```http://localhost:8080/``` or ```https://well-pharmacy-technical-assess.herokuapp.com/swagger-ui.html``` Swagger Endpoint 
+- ```http://localhost:8080/surgeries``` or ```https://well-pharmacy-technical-assess.herokuapp.com/surgeries```  get number of surgeries in area/City by outward postcode.
+- ```http://localhost:8080/surgeries/topsurgeries/{topSurgeries}``` or ```https://well-pharmacy-technical-assess.herokuapp.com/surgeries/topsurgeries/{topSurgeries}``` get most number of surgeries in area/City  (replace {topSurgeries} with the number value  top 5, for example: ```http://localhost:8080/surgeries/topsurgeries/5```)
 
 
 ## How to run the application locally
@@ -17,7 +19,7 @@ The application uses port 8080, and uses Spring Boot, Junit 5 and Lombok.
 1. Open Terminal or Command Line/ PowerShell.
 2. Navigate to the location where the project has been download or cloned.
 3. Run `./gradlew clean bootrun` which would run the project.
-4. Go to your web browser and type in localhost:8080/surgeries or [click here](http://localhost:8080/surgeries) 
+4.Go to your web browser and type in localhost:8080 or [click here](http://localhost:8080) you would be introduced to a swagger documentation outlining the endpoint and the request and response body to use the API.
 
 # Help me open a pharmacy
 
