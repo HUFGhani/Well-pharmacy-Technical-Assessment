@@ -177,5 +177,4 @@ public class SurgeriesServiceImplTest {
     List<SurgeryResponse> result = surgeriesService.getNumberOfSurgeriesInAnArea();
     assertTrue(result.size() == 0);
   }
-
 }

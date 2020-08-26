@@ -23,8 +23,7 @@ class SurgeriesControllerTest {
 
   @Autowired private MockMvc mockMvc;
 
-  @MockBean
-  SurgeriesService surgeriesService;
+  @MockBean SurgeriesService surgeriesService;
 
   @BeforeEach
   void setUp() {
